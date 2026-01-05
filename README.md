@@ -76,7 +76,13 @@ RT-DETR 矩阵（右）中对角线的显著性证实了其分类一致性优于
 | ![Trees](analysis_temp/redetr/redetr/预测的图片例子/FallenTrees_158_jpg.rf.a551bd1b565baa2bace1e24851f6df54.jpg) | ![Garbage](analysis_temp/yolo8n/yolo8n/我选出来的预测效果比较好的图/depositphotos_193064584-stock-photo-garbage-can-packed-garbage-waste3_jpg.rf.78f256c2036cd2dd1c180f697eab0a11.jpg) |
 | *RT-DETR 准确勾勒出了横断路面的树木。* | *YOLOv8n 成功定位了散落的垃圾桶。* |
 
-**图 3. 鲁棒性分析 (F1-Curves)**  
+**图 3. 训练指标曲线 (Training Metrics Curves)**  
+展示了 50 个 Epoch 内各项 Loss 的下降过程及精度指标的收敛情况。
+| YOLOv8n 训练曲线 | RT-DETR 训练曲线 |
+| :---: | :---: |
+| ![YOLO Results](analysis_temp/yolo8n/yolo8n/fine_tune_logs/results.png) | ![RT-DETR Results](analysis_temp/redetr/redetr/fine_tune_logs/results.png) |
+
+**图 4. 鲁棒性分析 (F1-Curves)**  
 | YOLOv8n F1 Curve | RT-DETR F1 Curve |
 | :---: | :---: |
 | ![YOLO F1](analysis_temp/yolo8n/yolo8n/F1_curve.png) | ![RT-DETR F1](analysis_temp/redetr/redetr/F1_curve.png) |
@@ -146,7 +152,13 @@ The system demonstrates robustness across varying scales—from large obstructio
 | ![Trees](analysis_temp/redetr/redetr/预测的图片例子/FallenTrees_158_jpg.rf.a551bd1b565baa2bace1e24851f6df54.jpg) | ![Garbage](analysis_temp/yolo8n/yolo8n/我选出来的预测效果比较好的图/depositphotos_193064584-stock-photo-garbage-can-packed-garbage-waste3_jpg.rf.78f256c2036cd2dd1c180f697eab0a11.jpg) |
 | *RT-DETR correctly delineates the blockage.* | *YOLOv8n successfully locates scattered bins.* |
 
-**Fig 3. Robustness Analysis (F1-Curves)**  
+**Fig 3. Training Metrics Curves**  
+Illustrates the convergence of loss functions and precision metrics over 50 epochs.
+| YOLOv8n Training | RT-DETR Training |
+| :---: | :---: |
+| ![YOLO Results](analysis_temp/yolo8n/yolo8n/fine_tune_logs/results.png) | ![RT-DETR Results](analysis_temp/redetr/redetr/fine_tune_logs/results.png) |
+
+**Fig 4. Robustness Analysis (F1-Curves)**  
 | YOLOv8n F1 Curve | RT-DETR F1 Curve |
 | :---: | :---: |
 | ![YOLO F1](analysis_temp/yolo8n/yolo8n/F1_curve.png) | ![RT-DETR F1](analysis_temp/redetr/redetr/F1_curve.png) |
