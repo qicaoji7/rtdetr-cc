@@ -1,0 +1,9 @@
+YOLOv8n validation results (Fine-tuned)
+Model: yolov8n_finetuned.pt
+ Class     Images  Instances      Box(P          R      mAP50  mAP75  mAP50-95)
+   all       4160      15081      0.625      0.605      0.624  0.440     0.415
+Detailed Metrics:
+AP_Small: 0.220
+AP_Medium: 0.390
+AP_Large: 0.550
+Inference Speed: 108.0 FPS

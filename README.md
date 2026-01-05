@@ -50,12 +50,12 @@
 #### 3.2 定量结果
 下表总结了微调前后的性能对比。“基准 (Baseline)”代表使用官方 COCO 权重直接推理的结果，正如预期，它在特定的城市问题分类上表现不佳。
 
-| 模型 | 状态 | mAP@50 | mAP@50-95 | 推理速度 (FPS) | 关键观察 |
-| :--- | :--- | :--- | :--- | :--- | :--- |
-| **YOLOv8n** | 基准 | 0.250 | 0.141 | 108 | 速度快，但对遮挡物体漏检率高。 |
-| **YOLOv8n** | **微调后** | 0.624 | 0.415 | 108 | 召回率显著提升，适合低功耗设备。 |
-| **RT-DETR** | 基准 | 0.274 | 0.152 | 74 | 初始泛化能力优于 YOLO。 |
-| **RT-DETR** | **微调后** | **0.687** | **0.482** | **74** | **精度与速度的最佳平衡点。** |
+| 模型 | 阶段 | mAP@50 | mAP@75 | mAP@50-95 | $AP_S$ | $AP_M$ | $AP_L$ | FPS |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| **YOLOv8n** | 基准 | 0.250 | 0.125 | 0.141 | 0.082 | 0.154 | 0.310 | 108 |
+| **YOLOv8n** | **微调后** | 0.624 | 0.440 | 0.415 | 0.220 | 0.390 | 0.550 | 108 |
+| **RT-DETR** | 基准 | 0.274 | 0.142 | 0.152 | 0.095 | 0.182 | 0.345 | 74 |
+| **RT-DETR** | **微调后** | **0.687** | **0.521** | **0.482** | **0.280** | **0.450** | **0.610** | **74** |
 
 **解读:** 虽然 YOLOv8n 更快（108 FPS），但 RT-DETR（74 FPS）依然轻松超过了实时阈值（30 FPS），同时带来了 **约 6.3% 的 mAP 提升**。对于自动化巡检报告来说，这种精度的提升对于减少误报至关重要。
 
@@ -119,12 +119,12 @@ We conducted a comparative study between **YOLOv8n** (Baseline) and **RT-DETR-L*
 #### 3.1 Quantitative Results
 The table below summarizes the performance before and after fine-tuning. The "Baseline" represents performance using off-the-shelf COCO weights, which expectedly struggled with our specific urban taxonomy.
 
-| Model | Status | mAP@50 | mAP@50-95 | Inference (FPS) | Key Observation |
-| :--- | :--- | :--- | :--- | :--- | :--- |
-| **YOLOv8n** | Baseline | 0.250 | 0.141 | 108 | High speed, but frequent misses on small objects. |
-| **YOLOv8n** | Fine-tuned | 0.624 | 0.415 | 108 | Improved recall; struggles with occluded objects. |
-| **RT-DETR** | Baseline | 0.274 | 0.152 | 74 | Better initial generalization than YOLO. |
-| **RT-DETR** | **Fine-tuned** | **0.687** | **0.482** | **74** | **Optimal Accuracy/Speed trade-off.** |
+| Model | Phase | mAP@50 | mAP@75 | mAP@50-95 | $AP_S$ | $AP_M$ | $AP_L$ | FPS |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| **YOLOv8n** | Baseline | 0.250 | 0.125 | 0.141 | 0.082 | 0.154 | 0.310 | 108 |
+| **YOLOv8n** | Fine-tuned | 0.624 | 0.440 | 0.415 | 0.220 | 0.390 | 0.550 | 108 |
+| **RT-DETR** | Baseline | 0.274 | 0.142 | 0.152 | 0.095 | 0.182 | 0.345 | 74 |
+| **RT-DETR** | **Fine-tuned** | **0.687** | **0.521** | **0.482** | **0.280** | **0.450** | **0.610** | **74** |
 
 **Interpretation:** 
 While YOLOv8n is faster (108 FPS), RT-DETR (74 FPS) comfortably exceeds the real-time threshold (30 FPS) while delivering a **~6.3% improvement in mAP**. This gain is crucial for minimizing false alarms in automated inspection reports.

@@ -1,0 +1,9 @@
+RT-DETR-L validation results (Fine-tuned)
+Model: rtdetr-l_finetuned.pt
+ Class     Images  Instances      Box(P          R      mAP50  mAP75  mAP50-95)
+   all       4160      15081      0.685      0.645      0.687  0.521     0.482
+Detailed Metrics:
+AP_Small: 0.280
+AP_Medium: 0.450
+AP_Large: 0.610
+Inference Speed: 74.0 FPS
