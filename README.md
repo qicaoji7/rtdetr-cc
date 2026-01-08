@@ -88,9 +88,9 @@ RT-DETR 矩阵（右）中对角线的显著性证实了其分类一致性优于
 **图 3. 训练指标曲线 (Training Metrics Curves)**
 展示了 150 个 Epoch 内各项 Loss 的下降过程及精度指标的收敛情况。
 
-|      |      |
-| :--: | :--: |
-|      |      |
+|                       YOLOv8n 训练曲线                       |                       RT-DETR 训练曲线                       |
+| :----------------------------------------------------------: | :----------------------------------------------------------: |
+| <img src="/Users/qq/project/RTDETR-main/analysis_temp/yolo8n/yolo8n/训练日志记录/results.png" alt="results" style="zoom:150%;" /> | <img src="/Users/qq/project/RTDETR-main/analysis_temp/redetr/redetr/训练日志/results.png" alt="results" style="zoom:150%;" /> |
 
 **图 4. 鲁棒性分析 (F1-Curves)**  
 
