@@ -205,3 +205,7 @@ python val.py --weights analysis_temp/redetr/redetr/训练出来的模型/rtdetr
 # Evaluate the Fine-tuned YOLOv8n model
 python val.py --weights analysis_temp/yolo8n/yolo8n/训练出来的yolo8n模型/best.pt --data dataset/data.yaml --batch 16
 ```
+
+# Poster
+
+![poster (1)_page-0001](./poster_latex/poster (1)_page-0001.jpg)

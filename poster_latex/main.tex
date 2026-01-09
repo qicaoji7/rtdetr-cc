@@ -1,0 +1,238 @@
+\documentclass[final]{beamer}
+
+% ==================== PACKAGES ====================
+\usepackage[orientation=landscape,size=a0,scale=1.4,debug]{beamerposter}
+\usepackage[utf8]{inputenc}
+\usepackage{booktabs} % For professional tables
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{array}
+\usepackage{colortbl}
+\usepackage[backend=bibtex]{biblatex}
+\addbibresource{references.bib}
+
+% ==================== THEME & COLORS ====================
+\mode<presentation> {
+  \usetheme{Madrid}
+}
+
+% Define UrbanGuard Brand Colors (Professional Blue/Dark Grey)
+\definecolor{MainBlue}{HTML}{003366} % Navy Blue
+\definecolor{AccentOrange}{HTML}{FF6600} % Contrast
+\definecolor{LightGrey}{HTML}{F0F2F5}
+
+% Customizing Palette
+\setbeamercolor{palette primary}{bg=MainBlue,fg=white}
+\setbeamercolor{palette secondary}{bg=MainBlue!90!white,fg=white}
+\setbeamercolor{palette tertiary}{bg=MainBlue!80!white,fg=white}
+\setbeamercolor{palette quaternary}{bg=MainBlue!70!white,fg=white}
+\setbeamercolor{structure}{fg=MainBlue}
+\setbeamercolor{titlelike}{parent=palette primary}
+\setbeamercolor{block title}{bg=MainBlue,fg=white}
+\setbeamercolor{block body}{bg=white,fg=black}
+\setbeamercolor{block title example}{bg=AccentOrange,fg=white}
+\setbeamercolor{block body example}{bg=white,fg=black}
+
+% Fonts
+\usefonttheme{professionalfonts}
+
+% ==================== METADATA ====================
+\title{\Huge \textbf{UrbanGuard: Real-time Urban Infrastructure Inspection with RT-DETR}}
+\author{\Large Zhang Qianqi, Lu Siyuan, Qiu Yihao, Wang Haoran}
+\institute{\large Intelligent Urban Management System Course, 2026}
+\date{} % Date moved to footer
+
+% Customizing Title Page for Poster
+\setbeamertemplate{headline}{
+  \begin{beamercolorbox}[wd=\paperwidth]{palette primary}
+    \vskip3cm
+    \centering
+    {\VeryHuge \inserttitle} \vskip1.5cm
+    {\huge \insertauthor} \vskip1cm
+    {\Large \insertinstitute}
+    \vskip3cm
+  \end{beamercolorbox}
+}
+\setbeamertemplate{navigation symbols}{} % Remove navigation icons
+
+% ==================== CUSTOM FOOTLINE ====================
+\setbeamertemplate{footline}{
+  \begin{beamercolorbox}[wd=\paperwidth]{upper separation line foot}
+    \rule{0pt}{3pt}
+  \end{beamercolorbox}
+  \begin{beamercolorbox}[ht=4ex,leftskip=1cm,rightskip=1cm]{palette primary}%
+    \hfill \Large \textbf{UrbanGuard: Real-time Urban Infrastructure Inspection with RT-DETR} \hfill
+    \vskip1ex
+  \end{beamercolorbox}
+  \begin{beamercolorbox}[ht=3ex,leftskip=1cm,rightskip=1cm]{palette secondary}%
+    \large Zhang Qianqi, Lu Siyuan, Qiu Yihao, Wang Haoran \hfill Intelligent Urban Management System Course, 2026 \hfill \today
+    \vskip1ex
+  \end{beamercolorbox}
+  \begin{beamercolorbox}[wd=\paperwidth]{lower separation line foot}
+    \rule{0pt}{3pt}
+  \end{beamercolorbox}
+}
+
+% ==================== DOCUMENT ====================
+\begin{document}
+\begin{frame}{} 
+\vspace{-1cm}
+
+\begin{columns}[t]
+
+% ==================== COLUMN 1 ====================
+\begin{column}{0.32\paperwidth}
+
+  % -------------------- ABSTRACT --------------------
+  \begin{block}{1. Introduction \& Motivation}
+    Urban infrastructure maintenance (e.g., potholes, fallen trees) faces two critical challenges:
+    \begin{itemize}
+        \item \textbf{Complex Occlusions:} Vehicles or shadows often mimic or hide defects.
+        \item \textbf{Long-tail Distribution:} Common defects (cracks) overwhelm rare ones (dead animals).
+    \end{itemize}
+    
+    Current CNN-based solutions (like YOLO) struggle with global context. We propose \textbf{UrbanGuard}, an automated system based on \textbf{RT-DETR (Real-Time Detection Transformer)} \cite{lv2023detr}, achieving an optimal balance between \textbf{high precision (68.7\% mAP)} and \textbf{real-time inference (74 FPS)}.
+  \end{block}
+
+  \vspace{1cm}
+
+  % -------------------- METHODOLOGY 1 --------------------
+  \begin{block}{2. Data Engineering Pipeline}
+    \textbf{A. From Polygon to Bounding Box (MBR)}\
+    Raw annotations were provided as segmentation polygons. To adapt them for object detection:
+    \begin{itemize}
+        \item Developed a pre-processing script to compute the \textbf{Minimum Bounding Rectangle (MBR)}.
+        \item Standardized inputs for the RT-DETR encoder.
+    \end{itemize}
+
+    \textbf{B. Handling Class Imbalance}\
+    \begin{figure}
+        \centering
+        % PLACEHOLDER FOR MOSAIC IMAGE
+        % Upload 'mosaic_example.jpg' to Overleaf
+        \includegraphics[width=0.9\linewidth, height=12cm, keepaspectratio]{example-image-a} 
+        \caption{\textit{Mosaic Augmentation} stitches 4 images to increase small object sampling rates.}
+    \end{figure}
+  \end{block}
+
+\end{column}
+
+
+% ==================== COLUMN 2 ====================
+\begin{column}{0.32\paperwidth}
+
+  % -------------------- ARCHITECTURE --------------------
+  \begin{block}{3. Model Architecture: RT-DETR-L}
+    Unlike YOLOv8 \cite{jocher2023yolov8}, RT-DETR utilizes a hybrid encoder and an IoU-aware query selection mechanism.
+    
+    \begin{itemize}
+        \item \textbf{Backbone:} HGNetv2 (High performance feature extraction).
+        \item \textbf{Encoder:} Efficient Hybrid Encoder (Processing multi-scale features).
+        \item \textbf{Decoder:} Transformer Decoder with Auxiliary Prediction Heads.
+    \end{itemize}
+
+    \vspace{0.5cm}
+    \textbf{Training Configuration (Fine-tuning):}
+    \begin{table}
+    \centering
+    \begin{tabular}{l c c}
+        \toprule
+        \textbf{Parameter} & \textbf{RT-DETR-L} & \textbf{YOLOv8n} \\
+        \midrule
+        \textbf{Epochs} & 50 & 50 \\
+        \textbf{Batch Size} & \textbf{4} (VRAM Limit) & 16 \\
+        \textbf{Optimizer} & AdamW ($1e^{-4}$) & SGD ($1e^{-2}$) \\
+        \textbf{VRAM Usage} & $\sim$ 5.6 GB & $\sim$ 2.8 GB \\
+        \bottomrule
+    \end{tabular}
+    \end{table}
+  \end{block}
+
+  \vspace{1cm}
+
+  % -------------------- VISUAL RESULTS --------------------
+  \begin{block}{4. Visual Validation}
+    The system demonstrates robustness in challenging lighting conditions.
+    
+    \begin{figure}
+        \centering
+        % PLACEHOLDER FOR PREDICTION EXAMPLES
+        % Upload 'prediction_example.jpg' to Overleaf
+        \includegraphics[width=0.95\linewidth, height=15cm, keepaspectratio]{example-image-b}
+        \caption{Detection results: Fallen Trees (Left) and Small Garbage (Right).}
+    \end{figure}
+    
+    \begin{figure}
+        \centering
+        % PLACEHOLDER FOR CONFUSION MATRIX
+        % Upload 'confusion_matrix.png' to Overleaf
+        \includegraphics[width=0.8\linewidth, height=10cm, keepaspectratio]{example-image-c}
+        \caption{Confusion Matrix of RT-DETR showing high diagonal consistency.}
+    \end{figure}
+  \end{block}
+
+\end{column}
+
+
+% ==================== COLUMN 3 ====================
+\begin{column}{0.32\paperwidth}
+
+  % -------------------- QUANTITATIVE RESULTS --------------------
+  \begin{block}{5. Experimental Results}
+    We compared RT-DETR-L against the YOLOv8n baseline on our custom test set.
+    
+    \vspace{0.5cm}
+    \textbf{Key Metrics Comparison:}
+    \begin{table}
+    \centering
+    \rowcolors{2}{LightGrey}{white}
+    \begin{tabular}{l c c c c}
+        \toprule
+        \textbf{Model} & \textbf{mAP@50} & \textbf{mAP@50-95} & \textbf{FPS} & \textbf{Params} \\
+        \midrule
+        YOLOv8n (Base) & 0.250 & 0.141 & 108 & 3.2M \\
+        YOLOv8n (Fine-tuned) & 0.624 & 0.415 & 108 & 3.2M \\
+        RT-DETR (Base) & 0.274 & 0.152 & 74 & 32M \\
+        \textbf{RT-DETR (Ours)} & \textbf{0.687} & \textbf{0.482} & \textbf{74} & \textbf{32M} \\
+        \bottomrule
+    \end{tabular}
+    \end{table}
+
+    \vspace{0.5cm}
+    \textbf{Training Dynamics (50 Epochs):}
+    \begin{figure}
+        \centering
+        % PLACEHOLDER FOR RESULTS.PNG (THE GRAPH WE MADE)
+        % Upload 'results.png' to Overleaf
+        \includegraphics[width=1.0\linewidth, height=10cm, keepaspectratio]{example-image}
+        \caption{Training metrics showing convergence. The "jagged" curve reflects real-world validation volatility.}
+    \end{figure}
+  \end{block}
+
+  \vspace{1cm}
+
+  % -------------------- CONCLUSION --------------------
+  \begin{block}{6. Conclusion \& Future Work}
+    \begin{itemize}
+        \item \textbf{Conclusion:} By converting irregular annotations and applying Mosaic augmentation, we successfully adapted RT-DETR to the urban inspection task, achieving a \textbf{+6.3\% mAP} gain over YOLOv8n while maintaining real-time speed.
+        \item \textbf{Future Work:}
+        \begin{enumerate}
+            \item Deploy on Edge Devices (Jetson Orin) using TensorRT.
+            \item Integrate temporal tracking to filter out moving vehicles.
+        \end{enumerate}
+    \end{itemize}
+  \end{block}
+
+  \vspace{1cm}
+
+  % -------------------- REFERENCES --------------------
+  \begin{block}{References}
+    \scriptsize
+    \printbibliography
+  \end{block}
+
+\end{column}
+
+\end{columns}
+\end{frame}
+\end{document}
