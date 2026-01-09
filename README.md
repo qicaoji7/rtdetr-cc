@@ -208,4 +208,4 @@ python val.py --weights analysis_temp/yolo8n/yolo8n/训练出来的yolo8n模型/
 
 # Poster
 
-![poster (1)_page-0001](./poster_latex/poster (1)_page-0001.jpg)
+<img src="./poster_latex/poster (1)_page-0001.jpg" alt="poster (1)_page-0001" style="zoom:24%;" />
