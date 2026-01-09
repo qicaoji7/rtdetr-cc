@@ -173,9 +173,9 @@ The system demonstrates robustness across varying scales—from large obstructio
 **Fig 3. Training Metrics Curves**
 Illustrates the convergence of loss functions and precision metrics over 50 epochs.
 
-|                           YOLOv8n Training                           |                             RT-DETR Training                             |
-| :-------------------------------------------------------------------: | :----------------------------------------------------------------------: |
-| ![YOLO Results](analysis_temp/yolo8n/yolo8n/fine_tune_logs/results.png) | ![RT-DETR Results](analysis_temp/redetr/redetr/fine_tune_logs/results.png) |
+|                       YOLOv8n Training                       |                       RT-DETR Training                       |
+| :----------------------------------------------------------: | :----------------------------------------------------------: |
+| <img src="./analysis_temp/yolo8n/yolo8n/训练日志记录/results.png" alt="results" style="zoom:150%;" /> | <img src="./analysis_temp/redetr/redetr/训练日志/results.png" alt="results" style="zoom:150%;" /> |
 
 **Fig 4. Robustness Analysis (F1-Curves)**  
 
